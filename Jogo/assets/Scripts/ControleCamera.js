@@ -17,6 +17,8 @@ cc.Class({
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
         this.node.position = this.alvo.position;
+        
+        //limitando movimentação da camera
         this.node.x = Math.max(0 + this._resolucao.width / 2, this.node.x);
         this.node.y = Math.max(0 + this._resolucao.height / 2, this.node.y);
         

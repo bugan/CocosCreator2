@@ -4,6 +4,8 @@ cc.Class({
     properties: {
         direcao : cc.Vec2,
         velocidade : cc.Float,
+        xMaximo : cc.Float,
+        yMaximo : cc.Float,
 
         _animacao : cc.Animation,
         _teclado : {
@@ -27,8 +29,18 @@ cc.Class({
         this.direcao = this.direcao.normalize();
         let deslocamento = this.direcao.mul(dt * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
+        this.limitarPosicao();
     },
-    
+
+    limitarPosicao : function()
+    {
+        this.node.x = Math.max(0, this.node.x);  
+        this.node.y = Math.max(0, this.node.y);
+        
+        this.node.x = Math.min(this.xMaximo, this.node.x);
+        this.node.y = Math.min(this.yMaximo, this.node.y);
+    },
+
     mudaAnimacao : function()
     {
         let anima = "Andar";
