@@ -4,6 +4,9 @@ cc.Class({
     properties: {
         direcao : cc.Vec2,
         velocidade : cc.Float,
+        _teclado : {default: [],
+                    type: cc.Float,
+                   }
     },
 
     // use this for initialization
@@ -14,50 +17,55 @@ cc.Class({
 
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
-        this.direcao = this.direcao.normalize();
+        this.verificaTeclas();
 
+        this.direcao = this.direcao.normalize();
         let deslocamento = this.direcao.mul(dt * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
     },
-    
-    teclaPressionada : function(event)
+
+    verificaTeclas : function()
     {
-       
-        if(event.keyCode == cc.KEY.w)
+        this.direcao = cc.Vec2.ZERO;
+        
+        if(this.estaPressionada(cc.KEY.a))
         {
-            this.direcao.y = 1;
+            this.direcao.x -= 1;
         }
-         if(event.keyCode == cc.KEY.s)
+        if(this.estaPressionada(cc.KEY.d))
         {
-            this.direcao.y = -1;
+            this.direcao.x += 1;
         }
-         if(event.keyCode == cc.KEY.a)
+        if(this.estaPressionada(cc.KEY.s))
         {
-            this.direcao.x = -1;
+            this.direcao.y -= 1;
         }
-         if(event.keyCode == cc.KEY.d)
+        if(this.estaPressionada(cc.KEY.w))
         {
-            this.direcao.x = 1;
+            this.direcao.y += 1;
         }
     },
-    
+
+    estaPressionada : function(tecla)
+    {
+        if(this._teclado.indexOf(tecla) != -1)
+        {
+            return true;
+        }
+        return false;
+    },
+
+    teclaPressionada : function(event)
+    {
+        if(this._teclado.indexOf(event.keyCode) == -1)
+        {
+            this._teclado.push(event.keyCode);
+        }
+    },
+
     teclaSolta : function(event)
     {
-        if(event.keyCode == cc.KEY.w)
-        {
-            this.direcao.y = 0;
-        }
-         if(event.keyCode == cc.KEY.s)
-        {
-            this.direcao.y = 0;
-        }
-         if(event.keyCode == cc.KEY.a)
-        {
-            this.direcao.x = 0;
-        }
-         if(event.keyCode == cc.KEY.d)
-        {
-            this.direcao.x = 0;
-        }
+        let index = this._teclado.indexOf(event.keyCode);
+        this._teclado.splice(index, 1);
     },
 });

@@ -758,9 +758,10 @@
     "_enabled": true,
     "direcao": {
       "__type__": "cc.Vec2",
-      "x": 4,
-      "y": 4
+      "x": 0,
+      "y": 0
     },
-    "velocidade": "100"
+    "velocidade": "100",
+    "_teclado": []
   }
 ]
