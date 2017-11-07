@@ -4,6 +4,8 @@ cc.Class({
     properties: {
         direcao : cc.Vec2,
         velocidade : cc.Float,
+
+        _animacao : cc.Animation,
         _teclado : {
             default: [],
             type: cc.Float,
@@ -14,21 +16,55 @@ cc.Class({
     onLoad: function () {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
+
+        this._animacao = this.getComponent(cc.Animation);
     },
 
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
         this.verificaTeclas();
-
+        this.mudaAnimacao();
         this.direcao = this.direcao.normalize();
         let deslocamento = this.direcao.mul(dt * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
+    },
+    
+    mudaAnimacao : function()
+    {
+        let anima = "Andar";
+
+        if(this.direcao.x > 0)
+        {
+            anima += "Direita";
+        }
+        else if(this.direcao.x < 0)
+        {
+            anima += "Esquerda";
+        }
+
+        if(this.direcao.y > 0)
+        {
+            anima += "Cima";
+        }
+        else if(this.direcao.y < 0)
+        {
+            anima += "Baixo";
+        }
+
+        //Se não tivemos nenhuma alteração quer dizer que o jogador não apertou nenhuma tecla
+        if(anima == "Andar")
+        {
+            anima = "Idle";
+        }
+
+        if(!this._animacao.getAnimationState(anima).isPlaying)
+            this._animacao.play(anima);
     },
 
     verificaTeclas : function()
     {
         this.direcao = cc.Vec2.ZERO;
-        
+
         if(this.estaPressionada(cc.KEY.a))
         {
             this.direcao.x -= 1;
