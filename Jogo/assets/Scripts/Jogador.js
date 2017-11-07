@@ -4,9 +4,10 @@ cc.Class({
     properties: {
         direcao : cc.Vec2,
         velocidade : cc.Float,
-        _teclado : {default: [],
-                    type: cc.Float,
-                   }
+        _teclado : {
+            default: [],
+            type: cc.Float,
+        }
     },
 
     // use this for initialization

@@ -667,7 +667,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "alienBlue_stand",
+    "_name": "Jogador",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -681,6 +681,9 @@
       },
       {
         "__id__": 19
+      },
+      {
+        "__id__": 20
       }
     ],
     "_prefab": null,
@@ -763,5 +766,47 @@
     },
     "velocidade": "100",
     "_teclado": []
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 17
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "525b8de8-d78d-41dc-a171-ed182818f2da"
+    },
+    "_clips": [
+      {
+        "__uuid__": "525b8de8-d78d-41dc-a171-ed182818f2da"
+      },
+      {
+        "__uuid__": "eaa0c70e-681f-4647-895f-3d2dd6b66f35"
+      },
+      {
+        "__uuid__": "c228f25c-1d77-46bd-80de-5b32ca8a90ce"
+      },
+      {
+        "__uuid__": "6d567203-8f9d-452e-a407-8842f87968b6"
+      },
+      {
+        "__uuid__": "233ded11-30ed-4f7d-8f16-9cabd67a49e4"
+      },
+      {
+        "__uuid__": "a0150f86-9122-4e42-bcf8-02e132280149"
+      },
+      {
+        "__uuid__": "1b05fa42-26ab-4802-afc2-c616df14220f"
+      },
+      {
+        "__uuid__": "a0ae6afb-8905-43bd-8dc5-dd01e7af291c"
+      },
+      {
+        "__uuid__": "4f8c2768-e55b-47a4-b442-ddc967565c6f"
+      }
+    ],
+    "playOnLoad": true
   }
 ]
