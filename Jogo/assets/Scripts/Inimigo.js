@@ -16,6 +16,7 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this._gameOver = cc.find("Canvas/GameOver");
+        this.alvo = cc.find("Personagens/Jogador");
     },
 
     // called every frame, uncomment this function to activate update callback
