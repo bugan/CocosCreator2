@@ -10,6 +10,7 @@ cc.Class({
 
         _distanciaAtual : cc.Float,
         _gameOver : cc.Node,
+        _deltaTime : cc.Float,
 
     },
 
@@ -21,7 +22,7 @@ cc.Class({
 
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
-
+        this._deltaTime = dt;
         this.direcao = this.alvo.position.sub(this.node.position);
 
         this._distanciaAtual = this.direcao.mag();
@@ -31,10 +32,6 @@ cc.Class({
             cc.director.pause();
             this.alvo.getComponent("Jogador").vivo = false;
             this._gameOver.active = true;
-            
-            
-            
-            
         }
         else
         {
@@ -43,9 +40,17 @@ cc.Class({
             this.node.position = this.node.position.add(deslocamento);
 
         }
-
-
     },
 
+    onCollisionStay : function(other)
+    {
+        if(other.node.group == "cenario")
+        {
+            //Ao detectarmos a colisão precisamos voltar o jogador para a posição logo antes da colisão acontecer
+            let deslocamento = this.direcao.mul(-1.05 * this._deltaTime * this.velocidade);
+            this.node.position = this.node.position.add(deslocamento);
+
+        }
+    }, 
 
 });
