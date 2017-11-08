@@ -7,20 +7,49 @@ cc.Class({
         xMaximo : cc.Float,
         yMaximo : cc.Float,
 
+        tiro : cc.Prefab,
+
         _animacao : cc.Animation,
+        _camera : cc.Camera,
+        _deltaTime : cc.Float,
         _teclado : {
             default: [],
             type: cc.Float,
         },
-        _deltaTime : cc.Float,
     },
 
     // use this for initialization
     onLoad: function () {
+        cc.director.getCollisionManager().enabled = true;
+        
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
-        cc.director.getCollisionManager().enabled = true;
+        
+        let canvas = cc.find("Canvas");
+        canvas.on("mousedown", this.atirar, this);
+        
+        
+        this._camera = cc.find("Camera");
         this._animacao = this.getComponent(cc.Animation);
+    },
+
+    atirar : function(event)
+    {
+       
+        let posicaoClick = event.getLocation();
+        posicaoClick.x -= event.target.x;
+        posicaoClick.y -= event.target.y;
+        posicaoClick = new cc.Vec2(posicaoClick.x, posicaoClick.y);
+        
+        let posicaoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
+        
+        let dir = posicaoClick.sub(posicaoJogador);
+        console.log(posicaoClick);
+        let disparo = cc.instantiate(this.tiro);
+        disparo.parent = this.node.parent;
+        disparo.position = this.node.position;
+        //acionamos o metodo init, passando a posição atual do tiro e o angulo do movimento
+        disparo.getComponent("Tiro").init(dir);
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -38,12 +67,15 @@ cc.Class({
 
     onCollisionStay : function(other)
     {
-        //Ao detectarmos a colisão precisamos voltar o jogador para a posição logo antes da colisão acontecer
-        let deslocamento = this.direcao.mul(-1.05 * this._deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);
-        
+        if(other.node.group == "cenario")
+        {
+            //Ao detectarmos a colisão precisamos voltar o jogador para a posição logo antes da colisão acontecer
+            let deslocamento = this.direcao.mul(-1.05 * this._deltaTime * this.velocidade);
+            this.node.position = this.node.position.add(deslocamento);
+
+        }
     }, 
-   
+
 
     limitarPosicao : function()
     {

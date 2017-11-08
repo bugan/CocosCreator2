@@ -24,7 +24,6 @@ cc.Class({
 
     onCollisionEnter : function(other)
     {
-        console.log(other);
         if(other.node.group == "inimigo")
         {
             other.node.destroy();

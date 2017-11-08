@@ -56,15 +56,15 @@
     "_scaleY": 0.3,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 426,
-      "y": 175
+      "x": 1136,
+      "y": 275
     },
     "_skewX": 0,
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
-    "groupIndex": 0
+    "groupIndex": 3
   },
   {
     "__type__": "cc.Sprite",
@@ -123,7 +123,7 @@
       "x": 1,
       "y": 1
     },
-    "velocidade": "100"
+    "velocidade": "400"
   },
   {
     "__type__": "cc.PrefabInfo",
