@@ -11,14 +11,15 @@ cc.Class({
         _teclado : {
             default: [],
             type: cc.Float,
-        }
+        },
+        _deltaTime : cc.Float,
     },
 
     // use this for initialization
     onLoad: function () {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
-
+        cc.director.getCollisionManager().enabled = true;
         this._animacao = this.getComponent(cc.Animation);
     },
 
@@ -26,17 +27,29 @@ cc.Class({
     update: function (dt) {
         this.verificaTeclas();
         this.mudaAnimacao();
+
+        this._deltaTime = dt;
+
         this.direcao = this.direcao.normalize();
         let deslocamento = this.direcao.mul(dt * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
         this.limitarPosicao();
     },
 
+    onCollisionStay : function(other)
+    {
+        //Ao detectarmos a colisão precisamos voltar o jogador para a posição logo antes da colisão acontecer
+        let deslocamento = this.direcao.mul(-1.05 * this._deltaTime * this.velocidade);
+        this.node.position = this.node.position.add(deslocamento);
+        
+    }, 
+   
+
     limitarPosicao : function()
     {
         this.node.x = Math.max(0, this.node.x);  
         this.node.y = Math.max(0, this.node.y);
-        
+
         this.node.x = Math.min(this.xMaximo, this.node.x);
         this.node.y = Math.min(this.yMaximo, this.node.y);
     },
