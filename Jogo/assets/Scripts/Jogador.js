@@ -44,7 +44,7 @@ cc.Class({
         let posicaoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
         
         let dir = posicaoClick.sub(posicaoJogador);
-        console.log(posicaoClick);
+        
         let disparo = cc.instantiate(this.tiro);
         disparo.parent = this.node.parent;
         disparo.position = this.node.position;
