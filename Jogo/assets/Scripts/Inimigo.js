@@ -9,12 +9,13 @@ cc.Class({
         distanciaAtaque : cc.Float,
 
         _distanciaAtual : cc.Float,
+        _gameOver : cc.Node,
 
     },
 
     // use this for initialization
     onLoad: function () {
-
+        this._gameOver = cc.find("Canvas/GameOver");
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -27,6 +28,11 @@ cc.Class({
         if(this._distanciaAtual < this.distanciaAtaque)
         {
             cc.director.pause();
+            this.alvo.getComponent("Jogador").vivo = false;
+            this._gameOver.active = true;
+            
+            
+            
             
         }
         else

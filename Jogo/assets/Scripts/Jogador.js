@@ -2,6 +2,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        vivo : true,
+
         direcao : cc.Vec2,
         velocidade : cc.Float,
         xMaximo : cc.Float,
@@ -20,36 +22,44 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        cc.director.resume();
         cc.director.getCollisionManager().enabled = true;
-        
+
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
-        
+
         let canvas = cc.find("Canvas");
         canvas.on("mousedown", this.atirar, this);
-        
-        
+
+
         this._camera = cc.find("Camera");
         this._animacao = this.getComponent(cc.Animation);
     },
 
     atirar : function(event)
     {
-       
-        let posicaoClick = event.getLocation();
-        posicaoClick.x -= event.target.x;
-        posicaoClick.y -= event.target.y;
-        posicaoClick = new cc.Vec2(posicaoClick.x, posicaoClick.y);
-        
-        let posicaoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
-        
-        let dir = posicaoClick.sub(posicaoJogador);
-        
-        let disparo = cc.instantiate(this.tiro);
-        disparo.parent = this.node.parent;
-        disparo.position = this.node.position;
-        //acionamos o metodo init, passando a posição atual do tiro e o angulo do movimento
-        disparo.getComponent("Tiro").init(dir);
+
+        if(this.vivo)
+        {
+            let posicaoClick = event.getLocation();
+            posicaoClick.x -= event.target.x;
+            posicaoClick.y -= event.target.y;
+            posicaoClick = new cc.Vec2(posicaoClick.x, posicaoClick.y);
+
+            let posicaoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
+
+            let dir = posicaoClick.sub(posicaoJogador);
+
+            let disparo = cc.instantiate(this.tiro);
+            disparo.parent = this.node.parent;
+            disparo.position = this.node.position;
+            //acionamos o metodo init, passando a posição atual do tiro e o angulo do movimento
+            disparo.getComponent("Tiro").init(dir);
+        }
+        else
+        {         
+            cc.director.loadScene("Jogo");
+        }
     },
 
     // called every frame, uncomment this function to activate update callback
