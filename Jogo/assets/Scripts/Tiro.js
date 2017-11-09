@@ -11,22 +11,26 @@ cc.Class({
 
     },
 
-    init : function(dir)
+    inicializa : function(pai, posicao, direcao)
     {
-        this.direcao = dir.normalize();
+        this.node.parent = pai;
+        this.node.position = posicao;
+        this.direcao = direcao.normalize();
     },
 
     // called every frame, uncomment this function to activate update callback
-    update: function (dt) {
-        let deslocamento = this.direcao.mul(dt * this.velocidade);
+    update: function (deltaTime) {
+        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
     },
 
     onCollisionEnter : function(other)
     {
+        console.log(other);
+        
         if(other.node.group == "inimigo")
         {
-            other.node.destroy();
+            other.node.emit("foiAtingido");
         }
         
         this.node.destroy();

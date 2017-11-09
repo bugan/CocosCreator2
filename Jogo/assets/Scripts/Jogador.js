@@ -11,6 +11,7 @@ cc.Class({
 
         tiro : cc.Prefab,
 
+        _audioDoTiro : cc.AudioSource,
         _animacao : cc.Animation,
         _camera : cc.Camera,
         _deltaTime : cc.Float,
@@ -22,113 +23,96 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.director.resume();
+
         cc.director.getCollisionManager().enabled = true;
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
 
         let canvas = cc.find("Canvas");
-        canvas.on("mousedown", this.clicou, this);
+        canvas.on("mousedown", this.atirar, this);
 
-
+        this._audioDoTiro = this.getComponent(cc.AudioSource);
+        
         this._camera = cc.find("Camera");
         this._animacao = this.getComponent(cc.Animation);
     },
 
-    // called every frame, uncomment this function to activate update callback
-    update: function (dt) {
+
+    update: function (deltaTime) {
         this.verificaTeclas();
         this.mudaAnimacao();
 
-        this._deltaTime = dt;
+        this._deltaTime = deltaTime;
 
         this.direcao = this.direcao.normalize();
-        let deslocamento = this.direcao.mul(dt * this.velocidade);
+        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
-        this.limitarPosicao();
     },
 
     onCollisionStay : function(other)
     {
         if(other.node.group == "cenario")
         {
-            //Ao detectarmos a colisão precisamos voltar o jogador para a posição logo antes da colisão acontecer
-            let deslocamento = this.direcao.mul(-1.05 * this._deltaTime * this.velocidade);
-            this.node.position = this.node.position.add(deslocamento);
-
+            this.voltarParaPosicaoDoUltimoFrame()
         }
     }, 
 
-    clicou : function(event)
+    voltarParaPosicaoDoUltimoFrame : function()
     {
-        if(this.vivo)
-        {
-            this.atirar(event);
-        }
-        else
-        {
-            cc.director.loadScene("Jogo");
-        }
+        let deslocamento = this.direcao.mul(-1 * this._deltaTime * this.velocidade);
+        this.node.position = this.node.position.add(deslocamento);
     },
 
     atirar : function(event)
     {
-        let posicaoClick = event.getLocation();
-        posicaoClick.x -= event.target.x;
-        posicaoClick.y -= event.target.y;
-        posicaoClick = new cc.Vec2(posicaoClick.x, posicaoClick.y);
+        let posicaoDoClique = event.getLocation();
+        posicaoDoClique.x -= event.target.x;
+        posicaoDoClique.y -= event.target.y;
+        posicaoDoClique = new cc.Vec2(posicaoDoClique.x, posicaoDoClique.y);
 
-        let posicaoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
+        let posicaoDoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
 
-        let dir = posicaoClick.sub(posicaoJogador);
+        let direcao = posicaoDoClique.sub(posicaoDoJogador);
 
         let disparo = cc.instantiate(this.tiro);
-        disparo.parent = this.node.parent;
-        disparo.position = this.node.position;
-        //acionamos o metodo init, passando a posição atual do tiro e o angulo do movimento
-        disparo.getComponent("Tiro").init(dir);
-    },
-
-    limitarPosicao : function()
-    {
-        this.node.x = Math.max(0, this.node.x);  
-        this.node.y = Math.max(0, this.node.y);
-
-        this.node.x = Math.min(this.xMaximo, this.node.x);
-        this.node.y = Math.min(this.yMaximo, this.node.y);
+        disparo.getComponent("Tiro").inicializa(this.node.parent, this.node.position, direcao);
+        
+        this._audioDoTiro.play();
     },
 
     mudaAnimacao : function()
     {
-        let anima = "Andar";
+        let proximaAnimacao = "Andar";
 
         if(this.direcao.x > 0)
         {
-            anima += "Direita";
+            proximaAnimacao += "Direita";
         }
         else if(this.direcao.x < 0)
         {
-            anima += "Esquerda";
+            proximaAnimacao += "Esquerda";
         }
 
         if(this.direcao.y > 0)
         {
-            anima += "Cima";
+            proximaAnimacao += "Cima";
         }
         else if(this.direcao.y < 0)
         {
-            anima += "Baixo";
+            proximaAnimacao += "Baixo";
         }
 
         //Se não tivemos nenhuma alteração quer dizer que o jogador não apertou nenhuma tecla
-        if(anima == "Andar")
+        if(proximaAnimacao == "Andar")
         {
-            anima = "Idle";
+            proximaAnimacao = "Parado";
         }
 
-        if(!this._animacao.getAnimationState(anima).isPlaying)
-            this._animacao.play(anima);
+        if(!this._animacao.getAnimationState(proximaAnimacao).isPlaying)
+        {
+            this._animacao.play(proximaAnimacao);
+        }
     },
 
     verificaTeclas : function()

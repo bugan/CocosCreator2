@@ -62,8 +62,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 201,
-      "y": 407
+      "x": -401,
+      "y": 271
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -115,9 +115,11 @@
       "x": 0,
       "y": 0
     },
-    "distanciaAtaque": "10",
+    "distanciaDoAtaque": "30",
     "_distanciaAtual": "Float",
-    "_gameOver": null
+    "_deltaTime": "Float",
+    "_animacao": null,
+    "_audioMorte": null
   },
   {
     "__type__": "cc.Animation",
