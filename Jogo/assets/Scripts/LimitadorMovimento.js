@@ -2,7 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        utiliarLimitesDaJanela : false,
+        utilizarLimitesDaJanela : false,
         posicaoMaxima : cc.Vec2,
         posicaoMinima : cc.Vec2,
     },
@@ -14,7 +14,7 @@ cc.Class({
         let metadeDaLarguraDaTela = resolucao.width / 2;
         let metadeDaAlturaDaTela = resolucao.height / 2;
 
-        if(this.utiliarLimitesDaJanela)
+        if(this.utilizarLimitesDaJanela)
         {
             this.posicaoMaxima.x -= metadeDaLarguraDaTela;
             this.posicaoMinima.x += metadeDaLarguraDaTela;

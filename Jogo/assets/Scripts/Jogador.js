@@ -22,7 +22,8 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
+    onLoad: function ()
+    {
 
         cc.director.getCollisionManager().enabled = true;
 
@@ -31,23 +32,22 @@ cc.Class({
 
         let canvas = cc.find("Canvas");
         canvas.on("mousedown", this.atirar, this);
+        
+        this.node.on("foiAtingido", this.sofrerDano, this);
 
         this._audioDoTiro = this.getComponent(cc.AudioSource);
-        
+
         this._camera = cc.find("Camera");
         this._animacao = this.getComponent(cc.Animation);
     },
 
-
-    update: function (deltaTime) {
-        this.verificaTeclas();
+    update: function (deltaTime)
+    {
+        this.ajustarDirecao();
         this.mudaAnimacao();
+        this.movimentaJogador(deltaTime);
 
         this._deltaTime = deltaTime;
-
-        this.direcao = this.direcao.normalize();
-        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);
     },
 
     onCollisionStay : function(other)
@@ -57,6 +57,18 @@ cc.Class({
             this.voltarParaPosicaoDoUltimoFrame()
         }
     }, 
+    
+    sofrerDano : function()
+    {
+        this.vivo = false;
+    },
+    
+    movimentaJogador : function(deltaTime)
+    {
+
+        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
+        this.node.position = this.node.position.add(deslocamento);
+    },
 
     voltarParaPosicaoDoUltimoFrame : function()
     {
@@ -77,45 +89,63 @@ cc.Class({
 
         let disparo = cc.instantiate(this.tiro);
         disparo.getComponent("Tiro").inicializa(this.node.parent, this.node.position, direcao);
-        
+
         this._audioDoTiro.play();
     },
 
     mudaAnimacao : function()
     {
-        let proximaAnimacao = "Andar";
+        let proximaAnimacao = this.getAnimacaoParaDirecaoAtual();
 
-        if(this.direcao.x > 0)
-        {
-            proximaAnimacao += "Direita";
-        }
-        else if(this.direcao.x < 0)
-        {
-            proximaAnimacao += "Esquerda";
-        }
-
-        if(this.direcao.y > 0)
-        {
-            proximaAnimacao += "Cima";
-        }
-        else if(this.direcao.y < 0)
-        {
-            proximaAnimacao += "Baixo";
-        }
-
-        //Se não tivemos nenhuma alteração quer dizer que o jogador não apertou nenhuma tecla
-        if(proximaAnimacao == "Andar")
-        {
-            proximaAnimacao = "Parado";
-        }
-
-        if(!this._animacao.getAnimationState(proximaAnimacao).isPlaying)
+        if(!this.animacaoEstaTocando(proximaAnimacao))
         {
             this._animacao.play(proximaAnimacao);
         }
     },
 
-    verificaTeclas : function()
+    animacaoEstaTocando : function(proximaAnimacao)
+    {
+        return this._animacao.getAnimationState(proximaAnimacao).isPlaying
+    },
+
+    getAnimacaoParaDirecaoAtual : function()
+    {
+        let proximaAnimacao = "Andar";
+
+        proximaAnimacao += this.escolheAnimacaoParaEixo(this.direcao.x, "Direita", "Esquerda");
+        proximaAnimacao += this.escolheAnimacaoParaEixo(this.direcao.y, "Cima", "Baixo");
+
+        proximaAnimacao = this.verificaAnimacaoParado(proximaAnimacao);
+
+        return proximaAnimacao;
+
+    },
+
+    escolheAnimacaoParaEixo : function(valorDoEixo, animacaoValorPositivo, animacaoValorNegativo)
+    {
+        if(valorDoEixo > 0)
+        {
+            return animacaoValorPositivo;
+        }
+        if(valorDoEixo < 0)
+        {
+            return animacaoValorNegativo;
+        }
+
+        return "";
+    },
+
+    verificaAnimacaoParado : function(nomeProximaAnimacao)
+    {
+        if(nomeProximaAnimacao == "Andar")
+        {
+            return "Parado";
+        }
+
+        return nomeProximaAnimacao;
+    },
+
+    ajustarDirecao : function()
     {
         this.direcao = cc.Vec2.ZERO;
 
@@ -135,6 +165,8 @@ cc.Class({
         {
             this.direcao.y += 1;
         }
+
+        this.direcao = this.direcao.normalize();
     },
 
     estaPressionada : function(tecla)
