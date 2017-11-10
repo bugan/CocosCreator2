@@ -1,20 +1,14 @@
+let Personagem = require("Personagem");
 cc.Class({
-    extends: cc.Component,
+    extends: Personagem,
 
     properties: {
         vivo : true,
 
-        direcao : cc.Vec2,
-        velocidade : cc.Float,
-        xMaximo : cc.Float,
-        yMaximo : cc.Float,
-
         tiro : cc.Prefab,
 
         _audioDoTiro : cc.AudioSource,
-        _animacao : cc.Animation,
         _camera : cc.Camera,
-        _deltaTime : cc.Float,
         _teclado : {
             default: [],
             type: cc.Float,
@@ -24,7 +18,7 @@ cc.Class({
     // use this for initialization
     onLoad: function ()
     {
-
+        this._super();
         cc.director.getCollisionManager().enabled = true;
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
@@ -38,26 +32,20 @@ cc.Class({
         this._audioDoTiro = this.getComponent(cc.AudioSource);
 
         this._camera = cc.find("Camera");
-        this._animacao = this.getComponent(cc.Animation);
+       
     },
 
     update: function (deltaTime)
     {
+        this._super(deltaTime);
         this.ajustarDirecao();
         this.mudaAnimacao();
         this.movimentaJogador(deltaTime);
-
-        this._deltaTime = deltaTime;
+        
+        
     },
 
-    onCollisionStay : function(other)
-    {
-        if(other.node.group == "cenario")
-        {
-            this.voltarParaPosicaoDoUltimoFrame()
-        }
-    }, 
-    
+
     sofrerDano : function()
     {
         this.vivo = false;
@@ -65,16 +53,10 @@ cc.Class({
     
     movimentaJogador : function(deltaTime)
     {
-
         let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
     },
-
-    voltarParaPosicaoDoUltimoFrame : function()
-    {
-        let deslocamento = this.direcao.mul(-1 * this._deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);
-    },
+    
 
     atirar : function(event)
     {
@@ -91,58 +73,6 @@ cc.Class({
         disparo.getComponent("Tiro").inicializa(this.node.parent, this.node.position, direcao);
 
         this._audioDoTiro.play();
-    },
-
-    mudaAnimacao : function()
-    {
-        let proximaAnimacao = this.getAnimacaoParaDirecaoAtual();
-
-        if(!this.animacaoEstaTocando(proximaAnimacao))
-        {
-            this._animacao.play(proximaAnimacao);
-        }
-    },
-
-    animacaoEstaTocando : function(proximaAnimacao)
-    {
-        return this._animacao.getAnimationState(proximaAnimacao).isPlaying
-    },
-
-    getAnimacaoParaDirecaoAtual : function()
-    {
-        let proximaAnimacao = "Andar";
-
-        proximaAnimacao += this.escolheAnimacaoParaEixo(this.direcao.x, "Direita", "Esquerda");
-        proximaAnimacao += this.escolheAnimacaoParaEixo(this.direcao.y, "Cima", "Baixo");
-
-        proximaAnimacao = this.verificaAnimacaoParado(proximaAnimacao);
-
-        return proximaAnimacao;
-
-    },
-
-    escolheAnimacaoParaEixo : function(valorDoEixo, animacaoValorPositivo, animacaoValorNegativo)
-    {
-        if(valorDoEixo > 0)
-        {
-            return animacaoValorPositivo;
-        }
-        if(valorDoEixo < 0)
-        {
-            return animacaoValorNegativo;
-        }
-
-        return "";
-    },
-
-    verificaAnimacaoParado : function(nomeProximaAnimacao)
-    {
-        if(nomeProximaAnimacao == "Andar")
-        {
-            return "Parado";
-        }
-
-        return nomeProximaAnimacao;
     },
 
     ajustarDirecao : function()

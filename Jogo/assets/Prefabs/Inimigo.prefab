@@ -62,8 +62,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -401,
-      "y": 271
+      "x": -591,
+      "y": 198
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -118,8 +118,7 @@
     "distanciaDoAtaque": "30",
     "_distanciaAtual": "Float",
     "_deltaTime": "Float",
-    "_animacao": null,
-    "_audioMorte": null
+    "_animacao": null
   },
   {
     "__type__": "cc.Animation",
@@ -159,9 +158,6 @@
       },
       {
         "__uuid__": "9fc120ab-dfc0-4462-8ac0-1a2e3b8138be"
-      },
-      {
-        "__uuid__": "c9aaa7e8-77e0-4bae-a415-4a96d45cdd8b"
       }
     ],
     "playOnLoad": false

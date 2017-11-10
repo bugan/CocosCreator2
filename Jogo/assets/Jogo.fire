@@ -1892,22 +1892,20 @@
       "__id__": 41
     },
     "_enabled": true,
-    "vivo": true,
     "direcao": {
       "__type__": "cc.Vec2",
       "x": 0,
       "y": 0
     },
     "velocidade": "300",
-    "xMaximo": "1800",
-    "yMaximo": "1000",
+    "_animacao": null,
+    "_deltaTime": "Float",
+    "vivo": true,
     "tiro": {
       "__uuid__": "88aa7cdb-a209-4199-811c-61bb5b209919"
     },
     "_audioDoTiro": null,
-    "_animacao": null,
     "_camera": null,
-    "_deltaTime": "Float",
     "_teclado": []
   },
   {
@@ -2006,7 +2004,7 @@
       "__id__": 41
     },
     "_enabled": true,
-    "utiliarLimitesDaJanela": false,
+    "utilizarLimitesDaJanela": false,
     "posicaoMaxima": {
       "__type__": "cc.Vec2",
       "x": 1800,
@@ -2114,7 +2112,7 @@
       "__id__": 49
     },
     "_enabled": true,
-    "utiliarLimitesDaJanela": true,
+    "utilizarLimitesDaJanela": true,
     "posicaoMaxima": {
       "__type__": "cc.Vec2",
       "x": 1800,
