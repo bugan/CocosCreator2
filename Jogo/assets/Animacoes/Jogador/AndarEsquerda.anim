@@ -30,7 +30,8 @@
             }
           }
         ]
-      }
+      },
+      "Jogador": {}
     },
     "props": {
       "rotation": [

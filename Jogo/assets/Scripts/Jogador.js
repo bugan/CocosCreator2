@@ -41,10 +41,7 @@ cc.Class({
         this.ajustarDirecao();
         this.mudaAnimacao();
         this.movimentaJogador(deltaTime);
-        
-        
     },
-
 
     sofrerDano : function()
     {
@@ -78,22 +75,27 @@ cc.Class({
     ajustarDirecao : function()
     {
         this.direcao = cc.Vec2.ZERO;
-
+        this.estadoAtual = "Parado";
+        
         if(this.estaPressionada(cc.KEY.a))
         {
             this.direcao.x -= 1;
+            this.estadoAtual = "Andar";
         }
         if(this.estaPressionada(cc.KEY.d))
         {
             this.direcao.x += 1;
+            this.estadoAtual = "Andar";
         }
         if(this.estaPressionada(cc.KEY.s))
         {
             this.direcao.y -= 1;
+            this.estadoAtual = "Andar";
         }
         if(this.estaPressionada(cc.KEY.w))
         {
             this.direcao.y += 1;
+            this.estadoAtual = "Andar";
         }
 
         this.direcao = this.direcao.normalize();

@@ -4,15 +4,19 @@ let Personagem = cc.Class({
     properties: {
         direcao : cc.Vec2,
         velocidade : cc.Float,
+        estadoAtual : cc.String,
 
         _animacao : cc.Animation,
         _deltaTime : cc.Float,
+        
     },
 
     // use this for initialization
     onLoad: function () {
 
         this._animacao = this.getComponent(cc.Animation);
+        this.estadoAtual = "Parado";
+        
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -36,7 +40,7 @@ let Personagem = cc.Class({
 
     mudaAnimacao : function()
     {
-        let proximaAnimacao = this.getAnimacaoParaDirecaoAtual();
+        let proximaAnimacao = this.escolheAnimacaoParaDirecaoAtual();
 
         if(!this.animacaoEstaTocando(proximaAnimacao))
         {
@@ -49,15 +53,13 @@ let Personagem = cc.Class({
         return this._animacao.getAnimationState(proximaAnimacao).isPlaying
     },
 
-    getAnimacaoParaDirecaoAtual : function()
+    escolheAnimacaoParaDirecaoAtual : function()
     {
-        let proximaAnimacao = "Andar";
+        let proximaAnimacao = this.estadoAtual;
 
         proximaAnimacao += this.escolheAnimacaoParaEixo(this.direcao.x, "Direita", "Esquerda");
         proximaAnimacao += this.escolheAnimacaoParaEixo(this.direcao.y, "Cima", "Baixo");
-
-        proximaAnimacao = this.verificaAnimacaoParado(proximaAnimacao);
-
+       
         return proximaAnimacao;
 
     },
@@ -68,6 +70,7 @@ let Personagem = cc.Class({
         {
             return animacaoValorPositivo;
         }
+        
         if(valorDoEixo < 0)
         {
             return animacaoValorNegativo;
@@ -76,14 +79,6 @@ let Personagem = cc.Class({
         return "";
     },
 
-    verificaAnimacaoParado : function(nomeProximaAnimacao)
-    {
-        if(nomeProximaAnimacao == "Andar")
-        {
-            return "Parado";
-        }
-
-        return nomeProximaAnimacao;
-    },
+   
 });
 module.exports = Personagem;

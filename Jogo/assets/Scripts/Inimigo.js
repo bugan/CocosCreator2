@@ -16,7 +16,7 @@ cc.Class({
         this.alvo = cc.find("Personagens/Jogador");
      
     },
-
+    
     sofrerDano : function()
     {
         this.node.destroy();
