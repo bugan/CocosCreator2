@@ -30,7 +30,7 @@ cc.Class({
     update: function (deltaTime)
     {
         this.movimentaJogador();
-        this._controleDeAnimacoes.mudaAnimacao(this._movimentacao.direcao);
+        this._controleDeAnimacoes.mudaAnimacao(this.calcularDirecao());
     },
 
     sofrerDano : function()

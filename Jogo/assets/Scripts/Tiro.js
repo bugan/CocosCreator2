@@ -21,11 +21,11 @@ cc.Class({
         this.movimentacao.andarParaFrente();
     },
 
-    onCollisionEnter : function(other)
+    onCollisionEnter : function(outro)
     {
-        if(other.node.group == "inimigo")
+        if(outro.node.group == "inimigo")
         {
-            other.node.emit("foiAtingido");
+            outro.node.emit("foiAtingido");
         }
         
         this.node.destroy();

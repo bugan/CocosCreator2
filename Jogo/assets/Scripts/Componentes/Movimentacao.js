@@ -2,7 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        direcao : cc.Vec2,
+        _direcao : cc.Vec2,
         velocidade : cc.Float,
         _deltaTime: 0,
     },
@@ -14,17 +14,17 @@ cc.Class({
 
     andarParaFrente : function(){
 
-        let deslocamento = this.direcao.mul(this._deltaTime * this.velocidade);
+        let deslocamento = this._direcao.mul(this._deltaTime * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
 
     },
 
     andarParaTras: function(){
-        let deslocamento = this.direcao.mul(-1 * this._deltaTime * this.velocidade);
+        let deslocamento = this._direcao.mul(-1 * this._deltaTime * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
     },
 
     setDirecao : function(novaDirecao){
-        this.direcao = novaDirecao.normalize();
+        this._direcao = novaDirecao.normalize();
     }
 });
