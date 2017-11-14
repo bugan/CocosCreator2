@@ -1,62 +1,51 @@
-let Personagem = require("Personagem");
+let Teclado = require("Teclado");
 cc.Class({
-    extends: Personagem,
+    extends: cc.Component,
 
     properties: {
         vivo : true,
-
         tiro : cc.Prefab,
-
+        _movimentacao : null,
+        _controleDeAnimacoes : null,
         _audioDoTiro : cc.AudioSource,
         _camera : cc.Camera,
-        _teclado : {
-            default: [],
-            type: cc.Float,
-        },
+
     },
 
     // use this for initialization
     onLoad: function ()
     {
-        this._super();
-        cc.director.getCollisionManager().enabled = true;
-
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.teclaPressionada, this);
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.teclaSolta, this);
-
         let canvas = cc.find("Canvas");
         canvas.on("mousedown", this.atirar, this);
-        
+
         this.node.on("foiAtingido", this.sofrerDano, this);
 
+        this._controleDeAnimacoes = this.getComponent("ControleAnimacaoJogador");
+        this._movimentacao = this.getComponent("Movimentacao");
         this._audioDoTiro = this.getComponent(cc.AudioSource);
-
         this._camera = cc.find("Camera");
-       
+
     },
 
     update: function (deltaTime)
     {
-        this._super(deltaTime);
-        this.ajustarDirecao();
-        this.mudaAnimacao();
-        this.movimentaJogador(deltaTime);
+        this.movimentaJogador();
+        this._controleDeAnimacoes.mudaAnimacao(this._movimentacao.direcao);
     },
 
     sofrerDano : function()
     {
         this.vivo = false;
     },
-    
+
     movimentaJogador : function(deltaTime)
     {
-        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);
+        this._movimentacao.setDirecao(this.calcularDirecao());
+        this._movimentacao.andarParaFrente();
     },
-    
 
-    atirar : function(event)
-    {
+
+    atirar : function(event){
         let posicaoDoClique = event.getLocation();
         posicaoDoClique.x -= event.target.x;
         posicaoDoClique.y -= event.target.y;
@@ -72,55 +61,28 @@ cc.Class({
         this._audioDoTiro.play();
     },
 
-    ajustarDirecao : function()
-    {
-        this.direcao = cc.Vec2.ZERO;
-        this.estadoAtual = "Parado";
-        
-        if(this.estaPressionada(cc.KEY.a))
-        {
-            this.direcao.x -= 1;
-            this.estadoAtual = "Andar";
-        }
-        if(this.estaPressionada(cc.KEY.d))
-        {
-            this.direcao.x += 1;
-            this.estadoAtual = "Andar";
-        }
-        if(this.estaPressionada(cc.KEY.s))
-        {
-            this.direcao.y -= 1;
-            this.estadoAtual = "Andar";
-        }
-        if(this.estaPressionada(cc.KEY.w))
-        {
-            this.direcao.y += 1;
-            this.estadoAtual = "Andar";
+    calcularDirecao : function(){
+        let direcao = cc.Vec2.ZERO;
+        //console.log(Teclado.estaPressionada(cc.KEY.a));
+        if(Teclado.estaPressionada(cc.KEY.a)){
+            direcao.x -= 1;
         }
 
-        this.direcao = this.direcao.normalize();
-    },
-
-    estaPressionada : function(tecla)
-    {
-        if(this._teclado.indexOf(tecla) != -1)
-        {
-            return true;
+        if(Teclado.estaPressionada(cc.KEY.d)){
+            direcao.x += 1;
         }
-        return false;
-    },
 
-    teclaPressionada : function(event)
-    {
-        if(this._teclado.indexOf(event.keyCode) == -1)
-        {
-            this._teclado.push(event.keyCode);
+        if(Teclado.estaPressionada(cc.KEY.s)){
+            direcao.y -= 1;   
         }
+
+        if(Teclado.estaPressionada(cc.KEY.w)){
+            direcao.y += 1;
+        }
+
+        direcao = direcao.normalize();
+
+        return direcao;
     },
 
-    teclaSolta : function(event)
-    {
-        let index = this._teclado.indexOf(event.keyCode);
-        this._teclado.splice(index, 1);
-    },
 });

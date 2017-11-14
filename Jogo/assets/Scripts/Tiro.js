@@ -2,26 +2,23 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        direcao : cc.Vec2,
-        velocidade : cc.Float,
+        movimentacao : null,
     },
 
     // use this for initialization
     onLoad: function () {
-
+        this.movimentacao = this.getComponent("Movimentacao");
     },
 
     inicializa : function(pai, posicao, direcao)
     {
         this.node.parent = pai;
         this.node.position = posicao;
-        this.direcao = direcao.normalize();
+        this.movimentacao.setDirecao(direcao);
     },
-
-    // called every frame, uncomment this function to activate update callback
+    
     update: function (deltaTime) {
-        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);
+        this.movimentacao.andarParaFrente();
     },
 
     onCollisionEnter : function(other)

@@ -1,20 +1,21 @@
-let Personagem = require("Personagem");
 cc.Class({
-    extends: Personagem,
+    extends: cc.Component,
 
     properties: {
         alvo : cc.Node,
         distanciaDoAtaque : cc.Float,
         _distanciaAtual : cc.Float,
+        _movimentacao : null,
+        _controleAnimacao : null,
+        
     },
 
     // use this for initialization
     onLoad: function (){
-        this._super();
         this.node.on("foiAtingido", this.sofrerDano, this);
-
         this.alvo = cc.find("Personagens/Jogador");
-     
+        this.movimentacao = this.getComponent("Movimentacao");
+        this._controleAnimacao = this.getComponent("ControleAnimacaoInimigo");
     },
     
     sofrerDano : function()
@@ -23,8 +24,9 @@ cc.Class({
     },
 
     update: function (deltaTime) {
-        this.direcao = this.alvo.position.sub(this.node.position);
-        this._distanciaAtual = this.direcao.mag();
+        let direcao = this.alvo.position.sub(this.node.position);
+        this._distanciaAtual = direcao.mag();
+        this.movimentacao.setDirecao(direcao);
 
         if(this._distanciaAtual < this.distanciaDoAtaque)
         {
@@ -32,17 +34,10 @@ cc.Class({
         }
         else
         {
-            this.movimentarInimigo(deltaTime);
+            this.movimentacao.andarParaFrente();
         }
         
-        this.mudaAnimacao();
-        
-        this._super(deltaTime);
+        this._controleAnimacao.mudaAnimacao(this.movimentacao.direcao, "Andar");
     },
-    movimentarInimigo : function(deltaTime)
-    {
-        this.direcao = this.direcao.normalize();
-        let deslocamento = this.direcao.mul(deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);  
-    },
+    
 });

@@ -31,10 +31,19 @@
       },
       {
         "__id__": 6
+      },
+      {
+        "__id__": 7
+      },
+      {
+        "__id__": 8
+      },
+      {
+        "__id__": 9
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 10
     },
     "_id": "",
     "_opacity": 255,
@@ -62,8 +71,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -197,
-      "y": 298
+      "x": -268,
+      "y": 376
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -99,27 +108,6 @@
     "_atlas": {
       "__uuid__": "824f402d-c1b0-4b53-a1d8-76a217365acd"
     }
-  },
-  {
-    "__type__": "5903dsY6ttLvpXfK3wk31H2",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "direcao": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "velocidade": "80",
-    "estadoAtual": "String",
-    "_animacao": null,
-    "_deltaTime": "Float",
-    "alvo": null,
-    "distanciaDoAtaque": "30",
-    "_distanciaAtual": "Float"
   },
   {
     "__type__": "cc.Animation",
@@ -182,6 +170,19 @@
     }
   },
   {
+    "__type__": "5903dsY6ttLvpXfK3wk31H2",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "alvo": null,
+    "distanciaDoAtaque": "30",
+    "_distanciaAtual": "Float",
+    "_movimentacao": null
+  },
+  {
     "__type__": "d60f7HEhL1LuLa80vJsiLYS",
     "_name": "",
     "_objFlags": 0,
@@ -189,6 +190,43 @@
       "__id__": 1
     },
     "_enabled": true
+  },
+  {
+    "__type__": "e1340831r1CxadNZZmquM65",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "direcao": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "velocidade": "100",
+    "_deltaTime": 0
+  },
+  {
+    "__type__": "4c764ZzuaZFXrRoVL/zbCWL",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_deltaTime": "Float",
+    "_movimentacao": null
+  },
+  {
+    "__type__": "845ec4ehnBAG7IPGjMK7lxf",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_animacao": null
   },
   {
     "__type__": "cc.PrefabInfo",
