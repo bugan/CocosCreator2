@@ -45,4 +45,5 @@ cc.Class({
             this.node.y = this.posicaoMaxima.y;
         }
     },
+    
 });

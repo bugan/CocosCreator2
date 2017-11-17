@@ -11,17 +11,18 @@ cc.Class({
     update: function (deltaTime) {
         this._deltaTime = deltaTime;
     },
-
-    andarParaFrente : function(){
-
-        let deslocamento = this._direcao.mul(this._deltaTime * this.velocidade);
+    
+    andar: function(sentido){
+        let deslocamento = this._direcao.mul(sentido * this._deltaTime * this.velocidade);
         this.node.position = this.node.position.add(deslocamento);
-
+    },
+    
+    andarParaFrente : function(){
+        this.andar(1);
     },
 
     andarParaTras: function(){
-        let deslocamento = this._direcao.mul(-1 * this._deltaTime * this.velocidade);
-        this.node.position = this.node.position.add(deslocamento);
+        this.andar(-1);
     },
 
     setDirecao : function(novaDirecao){

@@ -19,7 +19,7 @@ cc.Class({
     },
 
     sofrerDano : function()
-    {
+    {  
         this.node.destroy();
     },
 

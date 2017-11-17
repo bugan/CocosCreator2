@@ -3,6 +3,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        
         vivo : true,
         tiro : cc.Prefab,
         _movimentacao : null,
