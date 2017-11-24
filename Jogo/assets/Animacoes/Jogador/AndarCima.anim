@@ -3,8 +3,8 @@
   "_name": "AndarCima",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.2,
-  "sample": 60,
+  "_duration": 0.3333333333333333,
+  "sample": 24,
   "speed": 1,
   "wrapMode": 2,
   "curveData": {
@@ -14,73 +14,49 @@
           {
             "frame": 0,
             "value": {
-              "__uuid__": "45a13e1b-c38c-4bff-a1b6-37daa60fc07e"
+              "__uuid__": "d0c38a34-39b1-4b17-94db-78ed02fb73d6"
             }
           },
           {
-            "frame": 0.016666666666666666,
+            "frame": 0.041666666666666664,
             "value": {
-              "__uuid__": "4abd7b8e-ac97-4590-9a4d-75a8df59b5f1"
-            }
-          },
-          {
-            "frame": 0.03333333333333333,
-            "value": {
-              "__uuid__": "f4dfb0fb-8941-47cb-8f7d-21985a14d629"
-            }
-          },
-          {
-            "frame": 0.05,
-            "value": {
-              "__uuid__": "29f16481-23d1-4dba-b59d-f841b34d895e"
-            }
-          },
-          {
-            "frame": 0.06666666666666667,
-            "value": {
-              "__uuid__": "ffd2a4a2-3dbc-405d-80c2-817963159bfe"
+              "__uuid__": "1c5b315b-b598-47f2-92d8-b881a72da10b"
             }
           },
           {
             "frame": 0.08333333333333333,
             "value": {
-              "__uuid__": "1c80aa7e-30dc-47c5-824f-fbbfa7763ae1"
+              "__uuid__": "b1a2a4e6-28a7-4810-b09a-9fa9b71c3ac1"
             }
           },
           {
-            "frame": 0.1,
+            "frame": 0.125,
             "value": {
-              "__uuid__": "3a409645-c766-4cfd-9c89-10fe010000ef"
-            }
-          },
-          {
-            "frame": 0.11666666666666667,
-            "value": {
-              "__uuid__": "7629ef1e-1ff6-4766-8aa8-0a4421f36272"
-            }
-          },
-          {
-            "frame": 0.13333333333333333,
-            "value": {
-              "__uuid__": "94454723-d9d9-4718-a270-c596826c615d"
-            }
-          },
-          {
-            "frame": 0.15,
-            "value": {
-              "__uuid__": "5592207a-dd78-4293-b21a-31d5d2ac27b9"
+              "__uuid__": "5a52df39-1781-4bdb-bad9-e918888d8f26"
             }
           },
           {
             "frame": 0.16666666666666666,
             "value": {
-              "__uuid__": "d087625c-a1f6-44bb-9816-b41d741f079d"
+              "__uuid__": "fa3a2f88-7182-4ecb-9461-e6438d569075"
             }
           },
           {
-            "frame": 0.18333333333333332,
+            "frame": 0.20833333333333334,
             "value": {
-              "__uuid__": "aa942144-4815-4b36-9763-964fea7626c2"
+              "__uuid__": "e01ec881-8526-4926-a9c2-871f82d4e34f"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "813a318c-852a-4f4a-bc35-a6b2d0bc40f5"
+            }
+          },
+          {
+            "frame": 0.2916666666666667,
+            "value": {
+              "__uuid__": "eb90ab50-db64-4c0f-a779-7889cdb9f4a8"
             }
           }
         ]

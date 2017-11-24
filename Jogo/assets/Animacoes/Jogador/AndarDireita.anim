@@ -3,8 +3,8 @@
   "_name": "AndarDireita",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.15,
-  "sample": 60,
+  "_duration": 0.375,
+  "sample": 24,
   "speed": 1,
   "wrapMode": 2,
   "curveData": {
@@ -14,32 +14,61 @@
           {
             "frame": 0,
             "value": {
-              "__uuid__": "d26ae06e-ed72-4364-83d8-ced18d805155"
+              "__uuid__": "4ef44966-72f5-4648-9a4a-3efa9441e3dd"
             }
           },
           {
-            "frame": 0.06666666666666667,
+            "frame": 0.041666666666666664,
             "value": {
-              "__uuid__": "36ac2185-554d-4e23-a71b-0fe06238b51a"
+              "__uuid__": "8552e9ef-55e5-4639-8b8b-a4118cf404e2"
             }
           },
           {
-            "frame": 0.13333333333333333,
+            "frame": 0.08333333333333333,
             "value": {
-              "__uuid__": "d26ae06e-ed72-4364-83d8-ced18d805155"
+              "__uuid__": "1f166b94-9628-4142-adbb-1534279c7813"
+            }
+          },
+          {
+            "frame": 0.125,
+            "value": {
+              "__uuid__": "06364eb9-8d61-4b68-a6a3-c0508415b3da"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "d84ed60c-bb64-40cc-a7a7-125d4d3501ff"
+            }
+          },
+          {
+            "frame": 0.20833333333333334,
+            "value": {
+              "__uuid__": "e979cbce-09f6-482a-bcbc-95cafb6f95a8"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "d0797c5c-1bb9-4c26-bb08-64776b297502"
+            }
+          },
+          {
+            "frame": 0.2916666666666667,
+            "value": {
+              "__uuid__": "cba13ccd-e390-4cc0-8fa5-9b64e12bf0d3"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "1589e4be-0cf4-4c37-b693-c6e9c6034b28"
             }
           }
         ]
       }
     },
-    "props": {
-      "rotation": [
-        {
-          "frame": 0,
-          "value": 0
-        }
-      ]
-    }
+    "props": {}
   },
   "events": []
 }

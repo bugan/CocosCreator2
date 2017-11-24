@@ -17,7 +17,9 @@ cc.Class({
         this.movimentacao = this.getComponent("Movimentacao");
         this._controleAnimacao = this.getComponent("ControleAnimacaoInimigo");
     },
-
+    
+    
+    
     sofrerDano : function()
     {  
         this.node.destroy();

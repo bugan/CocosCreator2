@@ -1413,7 +1413,7 @@
     "inimigo": {
       "__uuid__": "a913efa6-7255-4f62-a20e-2f6afad087d2"
     },
-    "tempoParaGerar": "2",
+    "tempoParaGerar": "3",
     "_cronometro": "Float"
   },
   {
@@ -1604,12 +1604,12 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 54,
-      "height": 83
+      "width": 53,
+      "height": 81
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1617,8 +1617,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 630,
-      "y": 380
+      "x": 669,
+      "y": 396
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1636,7 +1636,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "5c3d8f9b-25c3-4e02-bc37-013b5588c6bd"
+      "__uuid__": "4cf94db1-55b2-47d8-802d-e2818a153290"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -1715,8 +1715,8 @@
     "tag": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 43
+      "x": -1,
+      "y": 3
     },
     "_size": {
       "__type__": "cc.Size",
@@ -1756,7 +1756,8 @@
     "_movimentacao": null,
     "_controleDeAnimacoes": null,
     "_audioDoTiro": null,
-    "_camera": null
+    "_camera": null,
+    "_canvas": null
   },
   {
     "__type__": "f2e5dzpHd1NU4wnBmq5HoSv",
@@ -1812,7 +1813,6 @@
       "__id__": 41
     },
     "_enabled": true,
-    "_deltaTime": "Float",
     "_movimentacao": null
   },
   {
@@ -2196,8 +2196,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1002,
-      "height": 675
+      "width": 1920,
+      "height": 1080
     },
     "_rotationX": 0,
     "_rotationY": 0,

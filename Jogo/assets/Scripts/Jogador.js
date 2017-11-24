@@ -3,21 +3,23 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        
+
         vivo : true,
         tiro : cc.Prefab,
         _movimentacao : null,
         _controleDeAnimacoes : null,
         _audioDoTiro : cc.AudioSource,
         _camera : cc.Camera,
+        _canvas : cc.Canvas,
 
     },
 
     // use this for initialization
     onLoad: function ()
     {
-        let canvas = cc.find("Canvas");
-        canvas.on("mousedown", this.atirar, this);
+        this._canvas = cc.find("Canvas");
+        this._canvas.on("mousedown", this.atirar, this);
+        this._canvas.on("mousemove", this.mudarDirecao, this);
 
         this.node.on("foiAtingido", this.sofrerDano, this);
 
@@ -27,11 +29,20 @@ cc.Class({
         this._camera = cc.find("Camera");
 
     },
+    mudarDirecao : function(event){
+        let posicaoDoClique = event.getLocation();
+        posicaoDoClique = new cc.Vec2(posicaoDoClique.x, posicaoDoClique.y);
+        posicaoDoClique = this._canvas.convertToNodeSpaceAR(posicaoDoClique);
 
+        let posicaoDoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
+
+        let direcao = posicaoDoClique.sub(posicaoDoJogador);
+        this._controleDeAnimacoes.mudaAnimacao(direcao);
+    },
     update: function (deltaTime)
     {
         this.movimentaJogador();
-        this._controleDeAnimacoes.mudaAnimacao(this.calcularDirecao());
+        //this._controleDeAnimacoes.mudaAnimacao(this.calcularDirecao());
     },
 
     sofrerDano : function()
@@ -48,9 +59,8 @@ cc.Class({
 
     atirar : function(event){
         let posicaoDoClique = event.getLocation();
-        posicaoDoClique.x -= event.target.x;
-        posicaoDoClique.y -= event.target.y;
         posicaoDoClique = new cc.Vec2(posicaoDoClique.x, posicaoDoClique.y);
+        posicaoDoClique = this._canvas.convertToNodeSpaceAR(posicaoDoClique);
 
         let posicaoDoJogador = this._camera.convertToNodeSpaceAR(this.node.position);
 
